@@ -13,6 +13,7 @@ import br.com.fiap.techchallenge.diegopinho.msauth.services.AuthService;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+
   @Autowired
   private AuthService service;
 
@@ -26,10 +27,11 @@ public class AuthController {
 
   @PostMapping("/token")
   public String getToken(@RequestBody AuthRequest authRequest) {
-    Authentication authenticate = authenticationManager
-        .authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+    UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(authRequest.getEmail(),
+        authRequest.getPassword());
+    Authentication authenticate = authenticationManager.authenticate(auth);
     if (authenticate.isAuthenticated()) {
-      return service.generateToken(authRequest.getUsername());
+      return service.generateToken(authRequest.getEmail());
     } else {
       throw new RuntimeException("invalid access");
     }

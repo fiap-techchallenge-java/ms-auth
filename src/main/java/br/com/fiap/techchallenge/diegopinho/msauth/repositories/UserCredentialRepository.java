@@ -10,4 +10,6 @@ public interface UserCredentialRepository extends JpaRepository<UserCredential, 
 
     Optional<UserCredential> findByName(String username);
 
+    Optional<UserCredential> findByEmail(String email);
+
 }
