@@ -38,8 +38,10 @@ public class AuthController {
   }
 
   @GetMapping("/validate")
-  public String validateToken(@RequestParam("token") String token) {
-    service.validateToken(token);
-    return "Token is valid";
+  public Long validateToken(@RequestParam("token") String token) {
+    System.out.println("BATI NO ENDPOINT");
+    String email = service.validateToken(token);
+    UserCredential userCredential = this.service.getUserCredentialByEmail(email);
+    return userCredential.getId();
   }
 }

@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 
 import br.com.fiap.techchallenge.diegopinho.msauth.entities.UserCredential;
 import br.com.fiap.techchallenge.diegopinho.msauth.repositories.UserCredentialRepository;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class AuthService {
@@ -30,8 +33,14 @@ public class AuthService {
     return jwtService.generateToken(username);
   }
 
-  public void validateToken(String token) {
-    jwtService.validateToken(token);
+  public String validateToken(String token) {
+    return jwtService.validateToken(token);
+  }
+
+  public UserCredential getUserCredentialByEmail(String email) {
+    return this.repository
+        .findByEmail(email)
+        .orElseThrow(() -> new EntityNotFoundException("User Credential Not Found!"));
   }
 
 }

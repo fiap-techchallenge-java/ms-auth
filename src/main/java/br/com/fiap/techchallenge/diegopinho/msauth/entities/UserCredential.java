@@ -9,7 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Table(name = "user_credential")
+@Table(name = "user_credentials")
 @Entity
 @Data
 @AllArgsConstructor
@@ -18,8 +18,9 @@ public class UserCredential {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private Long id;
   private String name;
   private String email;
   private String password;
+
 }
